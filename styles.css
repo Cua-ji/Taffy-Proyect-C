@@ -15,7 +15,7 @@ body {
     position: relative;
     overflow-x: hidden;
 }
-
+/* Decoraciones de fondo con tonos café(prueba con comentario apra la modificacion */
 /* Decoraciones de fondo con tonos café */
 body::before {
     content: '☕';
