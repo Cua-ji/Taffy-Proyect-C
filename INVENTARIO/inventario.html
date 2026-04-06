@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAFFY | Inventario</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="inventario.css">
+</head>
+<body>
+    <div class="inventory-container">
+        <!-- Header -->
+        <div class="inventory-header">
+            <div class="logo-area">
+                <i class="fas fa-mug-hot logo-icon"></i>
+                <div class="header-title">
+                    <h1>TAFFY - Inventario</h1>
+                    <p><i class="fas fa-boxes"></i> Gestión de productos</p>
+                </div>
+            </div>
+            <button class="back-btn" onclick="window.close()">
+                <i class="fas fa-arrow-left"></i>
+                <span>Volver al POS</span>
+            </button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Total Productos</h3>
+                        <div class="stat-value" id="totalProducts">0</div>
+                        <span class="stat-trend">+2 este mes</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Bajo Stock</h3>
+                        <div class="stat-value" id="lowStock">0</div>
+                        <span class="stat-trend down">Reabastecer pronto</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Valor Total</h3>
+                        <div class="stat-value" id="totalValue">$0</div>
+                        <span class="stat-trend">+15% vs ayer</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Categorías</h3>
+                        <div class="stat-value" id="totalCategories">5</div>
+                        <span class="stat-trend">Activas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="action-bar">
+                <h2>
+                    <i class="fas fa-clipboard-list"></i>
+                    Lista de Productos
+                </h2>
+                <div class="action-buttons">
+                    <button class="secondary-btn" onclick="exportInventory()">
+                        <i class="fas fa-download"></i>
+                        Exportar
+                    </button>
+                    <button class="primary-btn" onclick="window.open('PRODUCTO/agregar-producto.html', '_blank')">
+                        <i class="fas fa-plus-circle"></i>
+                        Nuevo Producto
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search and Filter -->
+            <div class="search-filter">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Buscar por nombre o categoría...">
+                </div>
+                <select class="filter-select" id="categoryFilter">
+                    <option value="all">Todas las categorías</option>
+                    <option value="cafes">☕ Cafés</option>
+                    <option value="tes">🍵 Tés</option>
+                    <option value="postres">🍰 Postres</option>
+                    <option value="desayunos">🍳 Desayunos</option>
+                    <option value="frios">🥤 Bebidas Frías</option>
+                </select>
+                <select class="filter-select" id="stockFilter">
+                    <option value="all">Todos los stocks</option>
+                    <option value="normal">Stock normal</option>
+                    <option value="low">Stock bajo</option>
+                    <option value="critical">Stock crítico</option>
+                </select>
+            </div>
+
+            <!-- Inventory Table -->
+            <div class="table-container">
+                <table id="inventoryTable">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Categoría</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Los datos se cargarán con JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="pagination-btn" id="prevPage">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <span class="page-info" id="pageInfo">Página 1 de 1</span>
+                <button class="pagination-btn" id="nextPage">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación para eliminar -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <i class="fas fa-exclamation-triangle modal-icon"></i>
+            <h3>¿Eliminar producto?</h3>
+            <p id="deleteProductName"></p>
+            <div class="modal-buttons">
+                <button class="modal-btn cancel" onclick="closeDeleteModal()">Cancelar</button>
+                <button class="modal-btn confirm delete" onclick="confirmDelete()">Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Producto actualizado</span>
+    </div>
+
+    <script src="inventario.js"></script>
+</body>
+</html>

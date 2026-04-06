@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAFFY | Agregar Producto</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="agregar-producto.css">
+</head>
+<body>
+    <div class="add-product-container">
+        <!-- Header -->
+        <div class="add-product-header">
+            <div class="logo-area">
+                <i class="fas fa-mug-hot logo-icon"></i>
+                <div class="header-title">
+                    <h1>TAFFY - Agregar Producto</h1>
+                    <p><i class="fas fa-plus-circle"></i> Nuevo producto al menú</p>
+                </div>
+            </div>
+            <button class="back-btn" onclick="window.close()">
+                <i class="fas fa-arrow-left"></i>
+                <span>Volver al POS</span>
+            </button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Progress Bar -->
+            <div class="progress-bar">
+                <div class="progress-step active">
+                    <div class="step-number">1</div>
+                    <span>Información básica</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step">
+                    <div class="step-number">2</div>
+                    <span>Detalles</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step">
+                    <div class="step-number">3</div>
+                    <span>Imagen</span>
+                </div>
+            </div>
+
+            <!-- Formulario -->
+            <form id="addProductForm" class="add-product-form">
+                <!-- Paso 1: Información básica -->
+                <div class="form-step active" id="step1">
+                    <h2><i class="fas fa-info-circle"></i> Información básica</h2>
+                    
+                    <div class="form-group">
+                        <label for="productName">
+                            <i class="fas fa-tag"></i>
+                            Nombre del producto <span class="required">*</span>
+                        </label>
+                        <input type="text" id="productName" name="productName" required 
+                               placeholder="Ej: Cappuccino TAFFY, Frappé de Vainilla...">
+                        <small>Máximo 50 caracteres</small>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productCategory">
+                                <i class="fas fa-list"></i>
+                                Categoría <span class="required">*</span>
+                            </label>
+                            <select id="productCategory" name="productCategory" required>
+                                <option value="">Seleccionar categoría</option>
+                                <option value="cafes">☕ Cafés</option>
+                                <option value="tes">🍵 Tés</option>
+                                <option value="postres">🍰 Postres</option>
+                                <option value="desayunos">🍳 Desayunos</option>
+                                <option value="frios">🥤 Bebidas Frías</option>
+                                <option value="otros">🆕 Otros</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="productPrice">
+                                <i class="fas fa-dollar-sign"></i>
+                                Precio <span class="required">*</span>
+                            </label>
+                            <div class="price-input">
+                                <span class="currency">$</span>
+                                <input type="number" id="productPrice" name="productPrice" 
+                                       required min="0" step="0.01" placeholder="0.00">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paso 2: Detalles -->
+                <div class="form-step" id="step2">
+                    <h2><i class="fas fa-clipboard-list"></i> Detalles del producto</h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productStock">
+                                <i class="fas fa-box"></i>
+                                Stock inicial <span class="required">*</span>
+                            </label>
+                            <input type="number" id="productStock" name="productStock" 
+                                   required min="0" placeholder="0">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="productMinStock">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Stock mínimo
+                            </label>
+                            <input type="number" id="productMinStock" name="productMinStock" 
+                                   min="0" placeholder="5" value="5">
+                            <small>Alerta cuando el stock baje de esta cantidad</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productDescription">
+                            <i class="fas fa-align-left"></i>
+                            Descripción
+                        </label>
+                        <textarea id="productDescription" name="productDescription" 
+                                  rows="4" placeholder="Describe el producto, ingredientes, preparación..."></textarea>
+                        <small>Máximo 200 caracteres</small>
+                    </div>
+
+                    <div class="form-options">
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="productPopular" name="productPopular">
+                                <span class="checkmark"></span>
+                                <span class="label-text">
+                                    <i class="fas fa-star" style="color: #FFD700;"></i>
+                                    Marcar como popular
+                                </span>
+                            </label>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="productAvailable" name="productAvailable" checked>
+                                <span class="checkmark"></span>
+                                <span class="label-text">
+                                    <i class="fas fa-check-circle" style="color: #28a745;"></i>
+                                    Producto disponible
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paso 3: Imagen -->
+                <div class="form-step" id="step3">
+                    <h2><i class="fas fa-image"></i> Imagen del producto</h2>
+
+                    <div class="image-upload-container">
+                        <div class="image-preview" id="imagePreview">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Haz clic para subir una imagen</p>
+                            <small>PNG, JPG, GIF hasta 5MB</small>
+                        </div>
+                        <input type="file" id="productImageFile" accept="image/*" style="display: none;">
+                        
+                        <div class="or-divider">O</div>
+
+                        <div class="form-group">
+                            <label for="productImageUrl">
+                                <i class="fas fa-link"></i>
+                                URL de la imagen
+                            </label>
+                            <input type="url" id="productImageUrl" name="productImageUrl" 
+                                   placeholder="https://ejemplo.com/imagen.jpg">
+                            <small>Usa una URL de internet (opcional si ya subiste un archivo)</small>
+                        </div>
+                    </div>
+
+                    <!-- Ejemplos de imágenes -->
+                    <div class="image-examples">
+                        <p><i class="fas fa-lightbulb"></i> Sugerencias de imágenes:</p>
+                        <div class="example-grid">
+                            <div class="example-item" onclick="useExampleImage('https://images.unsplash.com/photo-1572442388796-11668a67e53d')">
+                                <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=100" alt="Ejemplo café">
+                                <span>Café</span>
+                            </div>
+                            <div class="example-item" onclick="useExampleImage('https://images.unsplash.com/photo-1555507036-ab1f4038808a')">
+                                <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=100" alt="Ejemplo croissant">
+                                <span>Croissant</span>
+                            </div>
+                            <div class="example-item" onclick="useExampleImage('https://images.unsplash.com/photo-1533134242443-d4fd215305ad')">
+                                <img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=100" alt="Ejemplo pastel">
+                                <span>Pastel</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navegación del formulario -->
+                <div class="form-navigation">
+                    <button type="button" class="nav-btn prev" id="prevBtn" onclick="prevStep()" style="display: none;">
+                        <i class="fas fa-arrow-left"></i>
+                        Anterior
+                    </button>
+                    
+                    <div class="nav-center">
+                        <button type="button" class="nav-btn next" id="nextBtn" onclick="nextStep()">
+                            Siguiente
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <button type="submit" class="submit-btn" id="submitBtn" style="display: none;">
+                            <i class="fas fa-check-circle"></i>
+                            Guardar Producto
+                        </button>
+                    </div>
+                    
+                    <button type="button" class="nav-btn cancel" onclick="cancelForm()">
+                        <i class="fas fa-times"></i>
+                        Cancelar
+                    </button>
+                </div>
+            </form>
+
+            <!-- Vista previa en tiempo real -->
+            <div class="preview-card">
+                <h3><i class="fas fa-eye"></i> Vista previa</h3>
+                <div class="preview-content">
+                    <div class="preview-image" id="previewImage">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <div class="preview-info">
+                        <h4 id="previewName">Nombre del producto</h4>
+                        <p id="previewCategory">Categoría</p>
+                        <div class="preview-price" id="previewPrice">$0.00</div>
+                        <div class="preview-badges">
+                            <span class="preview-badge" id="previewPopular" style="display: none;">
+                                <i class="fas fa-star"></i> Popular
+                            </span>
+                            <span class="preview-badge" id="previewStock">
+                                <i class="fas fa-box"></i> <span id="previewStockValue">0</span> disponibles
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de éxito -->
+    <div class="modal" id="successModal">
+        <div class="modal-content success">
+            <i class="fas fa-check-circle modal-icon"></i>
+            <h3>¡Producto agregado!</h3>
+            <p id="successMessage">El producto se ha guardado correctamente</p>
+            <div class="modal-buttons">
+                <button class="modal-btn primary" onclick="addAnotherProduct()">
+                    <i class="fas fa-plus"></i>
+                    Agregar otro
+                </button>
+                <button class="modal-btn secondary" onclick="closeSuccessModal()">
+                    <i class="fas fa-check"></i>
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación de cancelación -->
+    <div class="modal" id="cancelModal">
+        <div class="modal-content">
+            <i class="fas fa-exclamation-triangle modal-icon warning"></i>
+            <h3>¿Cancelar?</h3>
+            <p>Los datos ingresados se perderán</p>
+            <div class="modal-buttons">
+                <button class="modal-btn cancel" onclick="closeCancelModal()">Seguir editando</button>
+                <button class="modal-btn confirm" onclick="confirmCancel()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-info-circle"></i>
+        <span id="toastMessage">Mensaje</span>
+    </div>
+
+    <script src="agregar-producto.js"></script>
+</body>
+</html>

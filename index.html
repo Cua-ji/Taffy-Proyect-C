@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAFFY | Punto de Venta</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="pos-container">
+        <!-- Header con nombre TAFFY -->
+        <div class="pos-header">
+            <div class="logo-area">
+                <i class="fas fa-mug-hot logo-icon"></i>
+                <div class="store-info">
+                    <h1>TAFFY</h1>
+                    <p><i class="fas fa-map-marker-alt"></i> Desde 2024 | Abierto 8:00 - 20:00</p>
+                </div>
+            </div>
+           
+        </div>
+
+        <!-- Main Content -->
+        <div class="pos-main">
+            <!-- Products Section - Menú Visual -->
+            <div class="products-section">
+                <div class="section-header">
+                    <h2>
+                        <i class="fas fa-utensils"></i>
+                        Menú TAFFY
+                    </h2>
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Buscar en el menú..." id="searchInput">
+                    </div>
+                </div>
+
+                <div class="categories" id="categoryTabs">
+                    <button class="category-btn active" data-category="all">
+                        <i class="fas fa-th-large"></i> Todos
+                    </button>
+                    <button class="category-btn" data-category="cafes">
+                        <i class="fas fa-coffee"></i> Cafés
+                    </button>
+                    <button class="category-btn" data-category="tes">
+                        <i class="fas fa-leaf"></i> Tés
+                    </button>
+                    <button class="category-btn" data-category="postres">
+                        <i class="fas fa-cake"></i> Postres
+                    </button>
+                    <button class="category-btn" data-category="desayunos">
+                        <i class="fas fa-egg"></i> Desayunos
+                    </button>
+                    <button class="category-btn" data-category="frios">
+                        <i class="fas fa-mug-saucer"></i> Bebidas Frías
+                    </button>
+                </div>
+
+                <div class="products-grid" id="productsGrid">
+                    <!-- Productos con imágenes desde JavaScript -->
+                </div>
+            </div>
+
+            <!-- Cart Section - Orden Actual -->
+            <div class="cart-section">
+                <div class="cart-header">
+                    <div>
+                        <h2>
+                            <i class="fas fa-shopping-bag"></i>
+                            Mi Orden
+                        </h2>
+                        <div class="table-selector">
+                            <i class="fas fa-chair"></i>
+                            <select id="tableSelect">
+                                <option value="Mesa 1">🍽️ Mesa 1</option>
+                                <option value="Mesa 2">🍽️ Mesa 2</option>
+                                <option value="Mesa 3">🍽️ Mesa 3</option>
+                                <option value="Mesa 4">🍽️ Mesa 4</option>
+                                <option value="Mesa 5">🍽️ Mesa 5</option>
+                                <option value="Para llevar">🛍️ Para llevar</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="order-timer" id="orderTimer">
+                        <i class="far fa-clock"></i>
+                        <span>00:00</span>
+                    </div>
+                </div>
+
+                <div class="cart-items" id="cartItems">
+                    <!-- Items de la orden -->
+                    <div class="empty-cart">
+                        <i class="fas fa-mug-hot"></i>
+                        <p>¡Tu orden está vacía!</p>
+                        <small>Haz clic en cualquier producto para empezar</small>
+                    </div>
+                </div>
+
+                <div class="order-notes">
+                    <i class="fas fa-pen"></i>
+                    <input type="text" placeholder="Notas: sin azúcar, extra espuma, sin gluten..." id="orderNotes">
+                </div>
+
+                <div class="cart-summary">
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>IVA (16%):</span>
+                        <span id="tax">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Propina:</span>
+                        <span id="tip">$0.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total TAFFY:</span>
+                        <span id="total">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="tip-buttons">
+                    <button class="tip-btn" onclick="addTip(10)">
+                        <i class="fas fa-smile"></i> 10%
+                    </button>
+                    <button class="tip-btn" onclick="addTip(15)">
+                        <i class="fas fa-grin"></i> 15%
+                    </button>
+                    <button class="tip-btn" onclick="addTip(20)">
+                        <i class="fas fa-star"></i> 20%
+                    </button>
+                    <button class="tip-btn" onclick="addTip(0)">
+                        <i class="fas fa-minus-circle"></i> Sin
+                    </button>
+                </div>
+
+                <div class="cart-actions">
+                    <button class="action-btn clear" onclick="clearOrder()">
+                        <i class="fas fa-trash"></i>
+                        Cancelar
+                    </button>
+                    <button class="action-btn hold" onclick="holdOrder()">
+                        <i class="fas fa-pause-circle"></i>
+                        Pausar
+                    </button>
+                    <button class="action-btn kitchen" onclick="sendToKitchen()">
+                        <i class="fas fa-utensils"></i>
+                        Cocina
+                    </button>
+                    <button class="action-btn pay" onclick="processPayment()">
+                        <i class="fas fa-credit-card"></i>
+                        Pagar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+      <!-- Footer con acciones rápidas - MODIFICADO -->
+<div class="pos-footer">
+    <div class="quick-actions">
+        <button class="quick-btn" onclick="quickAction('efectivo')">
+            <i class="fas fa-money-bill-wave"></i>
+            <span>Efectivo</span>
+        </button>
+        <button class="quick-btn" onclick="quickAction('tarjeta')">
+            <i class="fas fa-credit-card"></i>
+            <span>Tarjeta</span>
+        </button>
+        <button class="quick-btn" onclick="quickAction('transferencia')">
+            <i class="fas fa-mobile-alt"></i>
+            <span>Transferencia</span>
+        </button>
+        <button class="quick-btn" onclick="quickAction('qr')">
+            <i class="fas fa-qrcode"></i>
+            <span>QR</span>
+        </button>
+        <!-- NUEVOS BOTONES DE ADMINISTRACIÓN -->
+        <div class="admin-divider"></div>
+        <button class="quick-btn admin-btn" onclick="window.open('INVENTARIO/inventario.html', '_blank')">
+            <i class="fas fa-boxes"></i>
+            <span>Inventario</span>
+        </button>
+        <button class="quick-btn admin-btn" onclick="window.open('PRODUCTO/agregar-producto.html', '_blank')">
+            <i class="fas fa-plus-circle"></i>
+            <span>Agregar</span>
+        </button>
+        <button class="quick-btn admin-btn" onclick="window.open('reportes.html', '_blank')">
+            <i class="fas fa-chart-bar"></i>
+            <span>Reportes</span>
+        </button>
+    </div>
+    <div class="footer-info">
+        <i class="fas fa-user"></i> Barista: Carlos | 
+        <i class="fas fa-clock"></i> <span id="currentTime"></span> | 
+        <i class="fas fa-hashtag"></i> Orden #<span id="orderNumber">1024</span>
+    </div>
+</div>
+
+    <!-- Modal de confirmación -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <i class="fas fa-check-circle modal-icon"></i>
+            <h3>¿Confirmar pago?</h3>
+            <p id="modalTotal">Total: $0.00</p>
+            <div class="modal-buttons">
+                <button class="modal-btn cancel" onclick="closeModal()">Cancelar</button>
+                <button class="modal-btn confirm" onclick="confirmPayment()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
